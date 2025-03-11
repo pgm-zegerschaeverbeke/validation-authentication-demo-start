@@ -17,6 +17,7 @@ import {
   postRegister,
   register,
 } from "./controllers/AuthController.js";
+import ContactValidation from "./middleware/validation/ContactValidation.js";
 
 const app = express();
 app.use(express.static("public"));
@@ -44,7 +45,7 @@ app.post("/logout", logout);
 
 app.get("/", home);
 app.get("/contact", contact);
-app.post("/contact", postContact, contact);
+app.post("/contact", ContactValidation, postContact, contact);
 
 /**
  * API Routing
