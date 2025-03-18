@@ -3,6 +3,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import expressEjsLayouts from "express-ejs-layouts";
 import transporter from "./lib/MailTransporter.js";
+import cookieParser from "cookie-parser";
 
 import { VIEWS_PATH, PORT } from "./consts.js";
 
@@ -19,6 +20,9 @@ import {
   register,
 } from "./controllers/AuthController.js";
 import ContactValidation from "./middleware/validation/ContactValidation.js";
+import AuthRegisterValidation from "./middleware/validation/AuthRegisterValidation.js";
+import AuthLoginValidation from "./middleware/validation/AuthLoginValidation.js";
+
 
 const app = express();
 app.use(express.static("public"));
@@ -26,7 +30,7 @@ app.use(express.static("public"));
 /**
  * Import the body parser
  */
-
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -40,8 +44,8 @@ app.set("views", VIEWS_PATH);
  */
 app.get("/login", login);
 app.get("/register", register);
-app.post("/register", postRegister, register);
-app.post("/login", postLogin, login);
+app.post("/register", AuthRegisterValidation, postRegister, register);
+app.post("/login", AuthLoginValidation, postLogin, login);
 app.post("/logout", logout);
 
 app.get("/", home);

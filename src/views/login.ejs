@@ -3,7 +3,7 @@
   <%- include('./partials/form-errors') %>
   <form method="post" action="login">
     <% locals.inputs?.forEach(input => { %>
-      <%- include('form-input', input) %>
+      <%- include('./partials/form-input', input) %>
     <% }); %>
     <div class="footer-container">
       <div class="footer-container-left">

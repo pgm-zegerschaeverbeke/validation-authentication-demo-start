@@ -3,7 +3,7 @@
   <%- include('./partials/form-errors') %>
   <form method="post" action="register">
     <% locals.inputs?.forEach(input => { %>
-      <%- include('form-input', input) %>
+      <%- include('./partials/form-input', input) %>
     <% }); %>
     <div class="input-container">
       <label for="role">Bevoegd als</label>
